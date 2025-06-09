@@ -291,6 +291,7 @@ class ReentryApp {
                         `).join('')}
                     </div>
                 </div>
+                <div class="print-version">v0.1.0</div>
             </div>
         `;
 
