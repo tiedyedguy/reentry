@@ -258,37 +258,69 @@ class ReentryApp {
                 <div class="print-cases-section">
                     <h2>CRIMINAL HISTORY</h2>
                     <div class="print-cases-container">
-                        ${allCases.map((c, index) => `
-                            <div class="print-case ${index > 6 ? 'print-page-break' : ''}">
-                                <div class="print-case-header">${c.type.toUpperCase()}: ${c.highestCharge || 'N/A'}</div>
-                                <div class="print-case-details">
-                                    <div class="print-case-field">
-                                        <label>Court</label>
-                                        <span>${c.court || ''}</span>
-                                    </div>
-                                    <div class="print-case-field">
-                                        <label>Case Number</label>
-                                        <span>${c.caseNumber || ''}</span>
-                                    </div>
-                                    <div class="print-case-field">
-                                        <label>Disposition Date</label>
-                                        <span>${c.dispositionDate || ''}</span>
-                                    </div>
-                                    <div class="print-case-field">
-                                        <label>Code</label>
-                                        <span>${c.code || ''}</span>
-                                    </div>
-                                    <div class="print-case-field">
-                                        <label>Muni Charge #</label>
-                                        <span>${c.muniCharge || ''}</span>
-                                    </div>
-                                    <div class="print-case-field">
-                                        <label>Notes</label>
-                                        <span>${c.notes || ''}</span>
-                                    </div>
-                                </div>
+                        ${convictions.length > 0 ? `
+                            <div class="print-case-section">
+                                <h3>CONVICTIONS</h3>
+                                <table class="print-case-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Highest Charge</th>
+                                            <th>Court</th>
+                                            <th>Case Number</th>
+                                            <th>Disposition Date</th>
+                                            <th>Code</th>
+                                            <th>Muni Charge #</th>
+                                            <th>Notes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${convictions.map(c => `
+                                            <tr>
+                                                <td>${c.highestCharge || ''}</td>
+                                                <td>${c.court || ''}</td>
+                                                <td>${c.caseNumber || ''}</td>
+                                                <td>${c.dispositionDate || ''}</td>
+                                                <td>${c.code || ''}</td>
+                                                <td>${c.muniCharge || ''}</td>
+                                                <td>${c.notes || ''}</td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
                             </div>
-                        `).join('')}
+                        ` : ''}
+                        
+                        ${discharged.length > 0 ? `
+                            <div class="print-case-section">
+                                <h3>DISCHARGED CASES</h3>
+                                <table class="print-case-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Highest Charge</th>
+                                            <th>Court</th>
+                                            <th>Case Number</th>
+                                            <th>Disposition Date</th>
+                                            <th>Code</th>
+                                            <th>Muni Charge #</th>
+                                            <th>Notes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${discharged.map(c => `
+                                            <tr>
+                                                <td>${c.highestCharge || ''}</td>
+                                                <td>${c.court || ''}</td>
+                                                <td>${c.caseNumber || ''}</td>
+                                                <td>${c.dispositionDate || ''}</td>
+                                                <td>${c.code || ''}</td>
+                                                <td>${c.muniCharge || ''}</td>
+                                                <td>${c.notes || ''}</td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        ` : ''}
                     </div>
                 </div>
                 <div class="print-version">v0.1.0</div>
