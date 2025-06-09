@@ -213,8 +213,8 @@ class ReentryApp {
     printForm() {
         const convictions = this.cases.filter(c => c.type === 'conviction');
         const discharged = this.cases.filter(c => c.type === 'discharged');
-        const allCases = [...convictions, ...discharged];
 
+        // Create print content and inject it into the page
         const printContent = `
             <div class="print-content">
                 <div class="print-personal-section">
@@ -327,24 +327,25 @@ class ReentryApp {
             </div>
         `;
 
-        // Create a temporary div to hold print content
-        const printDiv = document.createElement('div');
-        printDiv.innerHTML = printContent;
-        printDiv.style.display = 'none';
-        document.body.appendChild(printDiv);
+        // Remove any existing print content
+        const existingPrintContent = document.querySelector('.print-content');
+        if (existingPrintContent) {
+            existingPrintContent.remove();
+        }
+
+        // Add print content to the page
+        document.body.insertAdjacentHTML('beforeend', printContent);
         
-        // Hide all other content
-        const originalContents = document.body.innerHTML;
-        document.body.innerHTML = printContent;
-        
-        // Print
+        // Trigger print
         window.print();
         
-        // Restore original content
-        document.body.innerHTML = originalContents;
-        
-        // Reinitialize the app since we replaced the DOM
-        const newApp = new ReentryApp();
+        // Clean up - remove print content after a short delay
+        setTimeout(() => {
+            const printContentElement = document.querySelector('.print-content');
+            if (printContentElement) {
+                printContentElement.remove();
+            }
+        }, 100);
     }
 
     clearForms() {
