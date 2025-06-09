@@ -360,10 +360,8 @@ body {
         left: 0;
         top: 0;
         width: 100%;
-        height: 100vh;
         padding: 0.5in;
-        display: flex;
-        flex-direction: column;
+        display: block;
     }
     
     @page {
@@ -372,39 +370,37 @@ body {
     }
     
     .print-personal-section {
-        height: 10%;
-        margin-bottom: 0.5rem;
+        margin-bottom: 1rem;
         padding-bottom: 0.5rem;
-        border-bottom: 1px solid #041E42;
+        border-bottom: 2px solid #041E42;
+        page-break-inside: avoid;
     }
     
     .print-personal-section h2 {
         color: #041E42;
         font-size: 1rem;
         font-weight: bold;
-        margin-bottom: 0.4rem;
+        margin-bottom: 0.5rem;
         text-align: center;
     }
     
     .print-personal {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 0.5rem;
+        gap: 0.8rem;
         font-size: 0.8rem;
         font-weight: bold;
-        height: calc(100% - 2rem);
     }
     
     .print-personal .print-field {
         display: flex;
         flex-direction: column;
-        justify-content: center;
     }
     
     .print-personal .print-field label {
         font-size: 0.6rem;
         color: #666;
-        margin-bottom: 0.1rem;
+        margin-bottom: 0.2rem;
         text-transform: uppercase;
         letter-spacing: 0.3px;
     }
@@ -412,13 +408,12 @@ body {
     .print-personal .print-field span {
         font-size: 0.8rem;
         border-bottom: 1px solid #041E42;
-        padding-bottom: 0.1rem;
-        min-height: 1rem;
+        padding-bottom: 0.2rem;
+        min-height: 1.2rem;
     }
     
     .print-cases-section {
-        flex: 1;
-        clear: both;
+        margin-top: 1rem;
         page-break-inside: avoid;
     }
     
@@ -433,11 +428,11 @@ body {
     
     .print-cases-container {
         display: block;
-        page-break-inside: avoid;
     }
     
     .print-case-section {
-        margin-bottom: 0.5rem;
+        margin-bottom: 1rem;
+        page-break-before: avoid;
         page-break-inside: avoid;
     }
     
@@ -453,25 +448,25 @@ body {
     .print-case-table {
         width: 100%;
         border-collapse: collapse;
-        font-size: 0.7rem;
-        page-break-inside: avoid;
+        font-size: 0.75rem;
+        margin-bottom: 0.5rem;
     }
     
     .print-case-table th {
         background-color: #041E42;
         color: white;
-        padding: 0.2rem;
+        padding: 0.3rem;
         text-align: left;
-        font-size: 0.6rem;
+        font-size: 0.7rem;
         font-weight: bold;
         border: 1px solid #041E42;
     }
     
     .print-case-table td {
-        padding: 0.2rem;
+        padding: 0.3rem;
         border: 1px solid #666;
         vertical-align: top;
-        font-size: 0.65rem;
+        font-size: 0.7rem;
     }
     
     .print-case-table tr:nth-child(even) {
