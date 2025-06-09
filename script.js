@@ -327,20 +327,24 @@ class ReentryApp {
             </div>
         `;
 
-        const printWindow = window.open('', '_blank');
-        printWindow.document.write(`
-            <html>
-                <head>
-                    <title>Reentry Form</title>
-                    <link rel="stylesheet" href="styles.css">
-                </head>
-                <body>
-                    ${printContent}
-                </body>
-            </html>
-        `);
-        printWindow.document.close();
-        printWindow.print();
+        // Create a temporary div to hold print content
+        const printDiv = document.createElement('div');
+        printDiv.innerHTML = printContent;
+        printDiv.style.display = 'none';
+        document.body.appendChild(printDiv);
+        
+        // Hide all other content
+        const originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContent;
+        
+        // Print
+        window.print();
+        
+        // Restore original content
+        document.body.innerHTML = originalContents;
+        
+        // Reinitialize the app since we replaced the DOM
+        const newApp = new ReentryApp();
     }
 
     clearForms() {
