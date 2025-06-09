@@ -213,49 +213,84 @@ class ReentryApp {
     printForm() {
         const convictions = this.cases.filter(c => c.type === 'conviction');
         const discharged = this.cases.filter(c => c.type === 'discharged');
+        const allCases = [...convictions, ...discharged];
 
         const printContent = `
             <div class="print-content">
-                <div class="print-section">
-                    <h2>Personal Information</h2>
+                <div class="print-personal-section">
+                    <h2>CLIENT INFORMATION</h2>
                     <div class="print-personal">
-                        <div><strong>Name:</strong> ${this.personalData.firstName || ''} ${this.personalData.lastName || ''}</div>
-                        <div><strong>SSN:</strong> ${this.personalData.ssn || ''}</div>
-                        <div><strong>Birthdate:</strong> ${this.personalData.birthdate || ''}</div>
-                        <div><strong>Address:</strong> ${this.personalData.address || ''}</div>
-                        <div><strong>City:</strong> ${this.personalData.city || ''}</div>
-                        <div><strong>State:</strong> ${this.personalData.state || ''}</div>
-                        <div><strong>ZIP:</strong> ${this.personalData.zip || ''}</div>
-                        <div><strong>Monthly Income:</strong> $${this.personalData.monthlyIncome || '0'}</div>
-                        <div><strong>Minor Children:</strong> ${this.personalData.minorChildren ? 'Yes' : 'No'}</div>
+                        <div class="print-field">
+                            <label>First Name</label>
+                            <span>${this.personalData.firstName || ''}</span>
+                        </div>
+                        <div class="print-field">
+                            <label>Last Name</label>
+                            <span>${this.personalData.lastName || ''}</span>
+                        </div>
+                        <div class="print-field">
+                            <label>Social Security Number</label>
+                            <span>${this.personalData.ssn || ''}</span>
+                        </div>
+                        <div class="print-field">
+                            <label>Date of Birth</label>
+                            <span>${this.personalData.birthdate || ''}</span>
+                        </div>
+                        <div class="print-field">
+                            <label>Address</label>
+                            <span>${this.personalData.address || ''}</span>
+                        </div>
+                        <div class="print-field">
+                            <label>City, State ZIP</label>
+                            <span>${this.personalData.city || ''} ${this.personalData.state || ''} ${this.personalData.zip || ''}</span>
+                        </div>
+                        <div class="print-field">
+                            <label>Monthly Income</label>
+                            <span>$${this.personalData.monthlyIncome || ''}</span>
+                        </div>
+                        <div class="print-field">
+                            <label>Minor Children</label>
+                            <span>${this.personalData.minorChildren ? 'Yes' : 'No'}</span>
+                        </div>
                     </div>
                 </div>
                 
-                ${convictions.length > 0 ? `
-                    <div class="print-section">
-                        <h2>Convictions</h2>
-                        ${convictions.map(c => `
-                            <div class="print-case">
-                                <div class="print-case-header">${c.highestCharge} - ${c.court}</div>
-                                <div>Case #: ${c.caseNumber} | Disposition: ${c.dispositionDate || 'N/A'} | Muni: ${c.muniCharge || 'N/A'} | Code: ${c.code || 'N/A'}</div>
-                                ${c.notes ? `<div>Notes: ${c.notes}</div>` : ''}
+                <div class="print-cases-section">
+                    <h2>CRIMINAL HISTORY</h2>
+                    <div class="print-cases-container">
+                        ${allCases.map((c, index) => `
+                            <div class="print-case ${index > 6 ? 'print-page-break' : ''}">
+                                <div class="print-case-header">${c.type.toUpperCase()}: ${c.highestCharge || 'N/A'}</div>
+                                <div class="print-case-details">
+                                    <div class="print-case-field">
+                                        <label>Court</label>
+                                        <span>${c.court || ''}</span>
+                                    </div>
+                                    <div class="print-case-field">
+                                        <label>Case Number</label>
+                                        <span>${c.caseNumber || ''}</span>
+                                    </div>
+                                    <div class="print-case-field">
+                                        <label>Disposition Date</label>
+                                        <span>${c.dispositionDate || ''}</span>
+                                    </div>
+                                    <div class="print-case-field">
+                                        <label>Code</label>
+                                        <span>${c.code || ''}</span>
+                                    </div>
+                                    <div class="print-case-field">
+                                        <label>Muni Charge #</label>
+                                        <span>${c.muniCharge || ''}</span>
+                                    </div>
+                                    <div class="print-case-field">
+                                        <label>Notes</label>
+                                        <span>${c.notes || ''}</span>
+                                    </div>
+                                </div>
                             </div>
                         `).join('')}
                     </div>
-                ` : ''}
-                
-                ${discharged.length > 0 ? `
-                    <div class="print-section">
-                        <h2>Discharged Cases</h2>
-                        ${discharged.map(c => `
-                            <div class="print-case">
-                                <div class="print-case-header">${c.highestCharge} - ${c.court}</div>
-                                <div>Case #: ${c.caseNumber} | Disposition: ${c.dispositionDate || 'N/A'} | Muni: ${c.muniCharge || 'N/A'} | Code: ${c.code || 'N/A'}</div>
-                                ${c.notes ? `<div>Notes: ${c.notes}</div>` : ''}
-                            </div>
-                        `).join('')}
-                    </div>
-                ` : ''}
+                </div>
             </div>
         `;
 
